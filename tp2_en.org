@@ -1,0 +1,25 @@
+#+TITLE: User stories
+#+AUTHOR: Liantsoa Sitrakiniavo Rakotomanana & Michel Donnet
+#+DATE: \today
+#+OPTIONS: tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
+
+* Students
+- As a student with no time, I want to find other students in my section, so that I could keep a social live in my studies
+- As a student facing exams, I want to find other students in my year, so that we could study together.
+- As a computer science student, I want to find students from other sections, so that I don't feel like I'm on the bangs of the rest of the university.
+- As a student, I want to be able to ask other students from previous years for advice on a course so that I can get through the year better
+- As a student, I want to find students with the same sporting interests so that we can get together in sports
+- As a student, I want to be able to consult the course schedule easily so that I don't forget to go to class
+- As a student, I want to know if other students make the same journey at the same times, so that I can take advantage of these journeys to share convivial moments
+- As a student, I want to find other students who share the same passions as me so that I can create a new association
+- As a student, I want to find other students from the same country or canton as me so that I can create a community
+
+* Assistants
+- As a teaching assistant, I want to inform the students of a course of the session cancellations so that I don't have students who have come for nothing
+* Professors
+- As a teacher, I want to inform students in a section about ARE's free positions, so that I have new assistants for exercise sessions
+- As a teacher, I want to create a class group so that I can convey course information more easily
+* Associations
+- As a student association, I want to put up announcements, so that students can be notified of various events
+- As an association, I want to find the contact details of students who might be interested in the association so that we can recruit new members
+- As an association, I want to know the number of students in a section so that I can better manage food and other things

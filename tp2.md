@@ -1,6 +1,5 @@
 # User stories
 
-
 - En tant qu'étudiant avec pas de temps, je voudrais trouver d'autres étudiants de ma section afin de garder une vie sociale dans mes études
 - En tant qu'étudiant devant passer des examens, je voudrais trouver d'autres étudiants de mon année afin de réviser ensemble
 - En tant qu'étudiant en informatique, je voudrais trouver des étudiants d'autre section afin de ne plus me sentir en marge du reste de l'université
