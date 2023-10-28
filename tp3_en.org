@@ -1,0 +1,16 @@
+#+TITLE: Domain Model
+#+AUTHOR: Liantsoa Sitrakiniavo Rakotomanana & Michel Donnet
+#+DATE: \today
+#+OPTIONS: tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
+
+
+
+
+* Domain model
+
+
+[[./uml.png]]
+
+
+Here, we thought that we can create groups for courses, associations, students...
+But the professors and assistants can't search students and can't match students.

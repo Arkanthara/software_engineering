@@ -1,4 +1,7 @@
 @startuml
+
+scale 1497*1026
+
 skinparam linetype ortho
 object Student
 object Professor
