@@ -1,0 +1,49 @@
+@startuml
+skinparam linetype ortho
+object Student
+object Professor
+object Assistant
+object Association
+
+object Profile {
+	E-mail
+	Name
+	Availabilities
+}
+
+Profile --> Student
+Profile --> Association
+Profile --> Assistant
+Profile --> Professor
+
+object Group {
+	Name
+	Description
+}
+
+
+object Interest {
+	Hobbies
+	Year
+	Section
+}
+
+Interest --> Student
+
+Student o-- Group
+Assistant o-- Group
+Professor o-- Group
+Association o-- Group
+
+object Search {
+	Filters
+}
+
+object Match {
+	Students
+}
+
+Student *-- Search
+Student *-- Match
+
+@enduml
