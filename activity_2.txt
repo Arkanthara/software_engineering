@@ -1,0 +1,39 @@
+@startuml
+
+(*) --> if (Not Registered) then (true)
+	-->[false] "Profile(name, email, Availabilitie(date, period))"
+endif
+--> "searchStudent(section)" as w1
+if "studentFound.getAvailabilities()" then
+	-->[that's ok !] "sendMessage(studentFoud, message)"
+else
+	-->[Not ok !] w1
+--> "sendMessage(studentFound, message)"
+--> "Work together"
+-->(*)
+
+
+
+@enduml
+
+@startuml
+start
+
+repeat :generateStudent();
+  :read data;
+  :generate diagrams;
+backward:This is backward;
+repeat while (more data?)
+if (Registered) then (true)
+else (false)
+	:Profile(name, email, Availabilitie(date, period));
+endif
+repeat :searchStudent(section);
+repeat while (studentFound.getAvailabilities()) is (not good availabilities)
+-> good availabilities:
+:sendMessage(studentFound, message);
+:Work together;
+end
+
+stop
+@enduml
