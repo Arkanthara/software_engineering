@@ -1,4 +1,4 @@
-#+TITLE: Domain Model
+#+TITLE: Logical View and Process View
 #+AUTHOR: Liantsoa Sitrakiniavo Rakotomanana & Michel Donnet
 #+DATE: \today
 #+OPTIONS: tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
@@ -6,11 +6,21 @@
 
 
 
-* Domain model
+* Class Diagram
 
 
-[[./uml.png]]
+[[./tp4.png]]
 
 
-Here, we thought that we can create groups for courses, associations, students...
-But the professors and assistants can't search students and can't match students.
+Here, we note for instance Hobbies instead of Hobbie to indicate that we can have many hobbies in Interest,
+because we don't know if we want to create a list, or a vector, or something else...
+
+
+* Activity Diagram
+
+We choose the user storie:
+
+/*As a student facing exams, I want to find other students in my year (section),
+so that we could study together.*/
+
+[[./activity.png]]

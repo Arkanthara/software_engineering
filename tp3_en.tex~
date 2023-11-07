@@ -1,4 +1,4 @@
-% Created 2023-11-06 Mon 13:09
+% Created 2023-11-06 Mon 13:08
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -14,10 +14,10 @@
 \usepackage{hyperref}
 \author{Liantsoa Sitrakiniavo Rakotomanana \& Michel Donnet}
 \date{\today}
-\title{Logical View and Process View}
+\title{Class diagram}
 \hypersetup{
  pdfauthor={Liantsoa Sitrakiniavo Rakotomanana \& Michel Donnet},
- pdftitle={Logical View and Process View},
+ pdftitle={Class diagram},
  pdfkeywords={},
  pdfsubject={},
  pdfcreator={Emacs 28.2 (Org mode 9.5.5)}, 
@@ -30,7 +30,7 @@
 
 
 \section{Class Diagram}
-\label{sec:org8892106}
+\label{sec:org65977de}
 
 
 \begin{center}
@@ -43,7 +43,7 @@ because we don't know if we want to create a list, or a vector, or something els
 
 
 \section{Activity Diagram}
-\label{sec:orgc0ab1e4}
+\label{sec:org15d71ef}
 
 We choose the user storie:
 
