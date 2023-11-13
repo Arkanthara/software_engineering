@@ -1,24 +1,22 @@
 @startuml
-scale 1024 width
-scale 2048 height
 actor User
 package "Presentation Layer" {
 card "Model View Controler" as MVC {
-	card View [
-	<b>View
-	----
-	display Interface
-	]
-	card Model [
-	<b>Model
-	----
-	look after data
-	]
-	card Controler [
-	<b>Controler
-	----
-	look after user's request
-	]
+    card View [
+    <b>View
+    ----
+    display Interface
+    ]
+    card Model [
+    <b>Model
+    ----
+    look after data
+    ]
+    card Controler [
+    <b>Controler
+    ----
+    look after user's request
+    ]
 }
 }
 card api [
@@ -27,6 +25,14 @@ card api [
     Allow to interact
     with micro-services
 ]
+User --> MVC
+View -> Controler : User input
+Controler --> Model : Manipulate data
+Model --> View : Update view
+Model --> api: request
+api --> Model: response
+api --> auth: must be registered
+auth --> api: response
 
 package "Business Layer" {
 card "Micro-services" as MS {
@@ -124,14 +130,6 @@ package "Database layer" as db {
     ]
 }
 
-User --> MVC
-View -> Controler : User input
-Controler --> Model : Manipulate data
-Model --> View : Update view
-Model -d-> api: request
-api -u-> Model: response
-api -d-> auth: must be registered
-auth -u-> api: response
 
     db --> rest: response
     rest --> db: request
@@ -151,4 +149,3 @@ auth --> event: must be an association
 auth --> search
 
 @enduml
-

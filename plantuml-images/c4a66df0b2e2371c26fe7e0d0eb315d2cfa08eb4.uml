@@ -1,0 +1,29 @@
+@startuml
+package "Database layer" as db {
+    database user [
+        <b> Profile_SQL database
+        ---
+        Store all informations
+        about profile of user
+    ]
+    database hobbies [
+        <b> Hobbies_SQL database
+        ---
+        Store all hobbies
+        and activities that
+        can be made by a student
+    ]
+    database group [
+        <b> Group_SQL database
+        ---
+        Store members, media,
+        documents...
+    ]
+    database messages [
+        <b>Message_SQL database
+        ---
+        Store messages
+    ]
+}
+
+@enduml

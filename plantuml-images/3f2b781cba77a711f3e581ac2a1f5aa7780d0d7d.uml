@@ -1,41 +1,38 @@
 @startuml
-scale 1024 width
-scale 2048 height
 actor User
 package "Presentation Layer" {
 card "Model View Controler" as MVC {
-	card View [
-	<b>View
-	----
-	display Interface
-	]
-	card Model [
-	<b>Model
-	----
-	look after data
-	]
-	card Controler [
-	<b>Controler
-	----
-	look after user's request
-	]
+    card View [
+    <b>View
+    ----
+    display Interface
+    ]
+    card Model [
+    <b>Model
+    ----
+    look after data
+    ]
+    card Controler [
+    <b>Controler
+    ----
+    look after user's request
+    ]
 }
 }
 card api [
     <b>API Gateway
     ---
-    Allow to interact
+    Permit to interact
     with micro-services
 ]
 
 package "Business Layer" {
 card "Micro-services" as MS {
     card auth [
-        <b>Security
+        <b>Authentification
         ----
         Look after user's registration
-        and authentification,
-        and security of messages
+        and authentification
     ]
     card search [
         <b>Search
@@ -115,40 +112,30 @@ package "Database layer" as db {
         <b> Group_SQL database
         ---
         Store members, media,
-        documents...
-    ]
-    database messages [
-        <b>Message_SQL database
-        ---
-        Store messages
+        messages, documents...
     ]
 }
-
-User --> MVC
 View -> Controler : User input
 Controler --> Model : Manipulate data
 Model --> View : Update view
-Model -d-> api: request
-api -u-> Model: response
-api -d-> auth: must be registered
-auth -u-> api: response
+Model --> api: request
 
     db --> rest: response
     rest --> db: request
     MS --> rest: request
     rest --> MS: response
-    hobbies --> user
-    user --> group
-    user --> messages
+    hobbies -l-> user
+    user -l-> group
 av --> filter
 hobbie --> filter
 match --> search : search matches
 filter --> search : search aid
+api -d-> auth : must be registered
 auth --> msg
 auth --> gp
-admin --> gp: a group must exist
-auth --> event: must be an association
+admin -d-> gp
+auth --> event
 auth --> search
+User --> MVC
 
 @enduml
-

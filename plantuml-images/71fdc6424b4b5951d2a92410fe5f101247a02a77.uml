@@ -1,24 +1,24 @@
 @startuml
 scale 1024 width
-scale 2048 height
+scale 768 height
 actor User
 package "Presentation Layer" {
 card "Model View Controler" as MVC {
-	card View [
-	<b>View
-	----
-	display Interface
-	]
-	card Model [
-	<b>Model
-	----
-	look after data
-	]
-	card Controler [
-	<b>Controler
-	----
-	look after user's request
-	]
+    card View [
+    <b>View
+    ----
+    display Interface
+    ]
+    card Model [
+    <b>Model
+    ----
+    look after data
+    ]
+    card Controler [
+    <b>Controler
+    ----
+    look after user's request
+    ]
 }
 }
 card api [
@@ -128,18 +128,20 @@ User --> MVC
 View -> Controler : User input
 Controler --> Model : Manipulate data
 Model --> View : Update view
-Model -d-> api: request
-api -u-> Model: response
-api -d-> auth: must be registered
-auth -u-> api: response
+MVC -d-> api: request
+api -u-> MVC: response
+api -d-> MS: must be registered
+MS -u-> api: response
 
     db --> rest: response
     rest --> db: request
     MS --> rest: request
     rest --> MS: response
-    hobbies --> user
-    user --> group
-    user --> messages
+hobbies -l-> user: user can have hobbies
+user -l-> group: group is composed by users
+user --> messages: no messages without user
+
+
 av --> filter
 hobbie --> filter
 match --> search : search matches
@@ -151,4 +153,3 @@ auth --> event: must be an association
 auth --> search
 
 @enduml
-

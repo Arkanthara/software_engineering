@@ -1,0 +1,25 @@
+@startuml
+actor User
+package "Presentation Layer" {
+card "Model View Controler" as MVC {
+    card View [
+    <b>View
+    ----
+    display Interface
+    ]
+    card Model [
+    <b>Model
+    ----
+    look after data
+    ]
+    card Controler [
+    <b>Controler
+    ----
+    look after user's request
+    ]
+}
+}
+User --> MVC
+View -> Controler : User input
+Controler --> Model : Manipulate data
+Model --> View : Update view

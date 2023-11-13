@@ -1,24 +1,24 @@
 @startuml
-scale 1024 width
-scale 2048 height
+scale 1024 width // 1024 pixels
+scale 768 height // 768 pixels
 actor User
 package "Presentation Layer" {
 card "Model View Controler" as MVC {
-	card View [
-	<b>View
-	----
-	display Interface
-	]
-	card Model [
-	<b>Model
-	----
-	look after data
-	]
-	card Controler [
-	<b>Controler
-	----
-	look after user's request
-	]
+    card View [
+    <b>View
+    ----
+    display Interface
+    ]
+    card Model [
+    <b>Model
+    ----
+    look after data
+    ]
+    card Controler [
+    <b>Controler
+    ----
+    look after user's request
+    ]
 }
 }
 card api [
@@ -151,4 +151,3 @@ auth --> event: must be an association
 auth --> search
 
 @enduml
-

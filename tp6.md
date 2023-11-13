@@ -1,0 +1,345 @@
+---
+title: TP 6 - Software architecture
+author: Liantsoa Sitrakiniavo Rakotomanana & Michel Donnet
+date: \today
+---
+\newpage
+As the diagram is very large, we decided first to break it down and visualize each of its components, then to visualize the whole.
+
+# Model View Controler
+```plantuml
+@startuml
+actor User
+package "Presentation Layer" {
+card "Model View Controler" as MVC {
+	card View [
+	<b>View
+	----
+	display Interface
+	]
+	card Model [
+	<b>Model
+	----
+	look after data
+	]
+	card Controler [
+	<b>Controler
+	----
+	look after user's request
+	]
+}
+}
+User --> View
+View -> Controler : User input
+Controler --> Model : Manipulate data
+Model --> View : Update view
+@enduml
+```
+# Micro-Services
+```plantuml
+@startuml
+package "Business Layer" {
+card "Micro-services" as MS {
+    card auth [
+        <b>Security
+        ----
+        Look after user's registration
+        and authentification,
+        and security of messages
+    ]
+    card search [
+        <b>Search
+        ---
+        Look after research of
+        students in Database
+    ]
+    card filter [
+        <b>Filter
+        ---
+        Filter hobbies
+        interest of students
+        Sections
+    ]
+    card match [
+        <b>Match
+        ---
+        Search students
+        who match
+    ]
+    card msg [
+        <b>Message
+        ---
+        Look after
+        messages
+    ]
+    card admin [
+        <b>Administrator
+        ---
+        Look after
+        a group
+    ]
+    card av [
+        <b>Availabilities
+        ---
+        Look after
+        availabilities
+    ]
+    card event [
+        <b>Event
+        ---
+        Look after event
+    ]
+    card hobbie [
+        <b>Hobbies
+        ---
+        Look after hobbies
+    ]
+    card gp [
+        <b>Group
+        ---
+        Look after a group
+    ]
+}
+}
+av --> filter
+hobbie --> filter
+match --> search : search matches
+filter --> search : search aid
+auth --> msg
+auth --> gp
+admin -d-> gp: a group must exist
+auth --> event: must be an association
+auth --> search
+
+
+@enduml
+```
+# Database
+```plantuml
+@startuml
+package "Database layer" as db {
+    database user [
+        <b> Profile_SQL database
+        ---
+        Store all informations
+        about profile of user
+    ]
+    database hobbies [
+        <b> Hobbies_SQL database
+        ---
+        Store all hobbies
+        and activities that
+        can be made by a student
+    ]
+    database group [
+        <b> Group_SQL database
+        ---
+        Store members, media,
+        documents...
+    ]
+    database messages [
+        <b>Message_SQL database
+        ---
+        Store messages
+    ]
+}
+hobbies -l-> user: user can have hobbies
+user -l-> group: group is composed by users
+user --> messages: no messages without user
+
+@enduml
+```
+# Layered architecture
+```plantuml
+@startuml
+card view [
+    <b>Presentation layer
+]
+card bus [
+    <b>Business layer
+]
+card db [
+    <b>Database layer
+]
+card api [
+    <b>API Gateway
+    ---
+    Allow to interact
+    with micro-services
+]
+card rest [
+    <b>API REST
+    ---
+    Allow to interact
+    with the database layer
+]
+view -> api: request
+api --> view: response
+api -> bus: request
+bus --> api: response
+bus -> rest: request
+rest -> db: request
+db --> rest: response
+rest --> bus: response
+
+@enduml
+```
+
+# Diagram of the project architecture
+```plantuml
+@startuml
+scale 1024 width
+scale 768 height
+actor User
+package "Presentation Layer" {
+card "Model View Controler" as MVC {
+	card View [
+	<b>View
+	----
+	display Interface
+	]
+	card Model [
+	<b>Model
+	----
+	look after data
+	]
+	card Controler [
+	<b>Controler
+	----
+	look after user's request
+	]
+}
+}
+card api [
+    <b>API Gateway
+    ---
+    Allow to interact
+    with micro-services
+]
+
+package "Business Layer" {
+card "Micro-services" as MS {
+    card auth [
+        <b>Security
+        ----
+        Look after user's registration
+        and authentification,
+        and security of messages
+    ]
+    card search [
+        <b>Search
+        ---
+        Look after research of
+        students in Database
+    ]
+    card filter [
+        <b>Filter
+        ---
+        Filter hobbies
+        interest of students
+        Sections
+    ]
+    card match [
+        <b>Match
+        ---
+        Search students
+        who match
+    ]
+    card msg [
+        <b>Message
+        ---
+        Look after
+        messages
+    ]
+    card admin [
+        <b>Administrator
+        ---
+        Look after
+        a group
+    ]
+    card av [
+        <b>Availabilities
+        ---
+        Look after
+        availabilities
+    ]
+    card event [
+        <b>Event
+        ---
+        Look after event
+    ]
+    card hobbie [
+        <b>Hobbies
+        ---
+        Look after hobbies
+    ]
+    card gp [
+        <b>Group
+        ---
+        Look after a group
+    ]
+}
+}
+card rest [
+    <b>API REST
+    ---
+    Allow to interact
+    with the database layer
+]
+package "Database layer" as db {
+    database user [
+        <b> Profile_SQL database
+        ---
+        Store all informations
+        about profile of user
+    ]
+    database hobbies [
+        <b> Hobbies_SQL database
+        ---
+        Store all hobbies
+        and activities that
+        can be made by a student
+    ]
+    database group [
+        <b> Group_SQL database
+        ---
+        Store members, media,
+        documents...
+    ]
+    database messages [
+        <b>Message_SQL database
+        ---
+        Store messages
+    ]
+}
+
+User --> MVC
+View -> Controler : User input
+Controler --> Model : Manipulate data
+Model --> View : Update view
+MVC -d-> api: request
+api -u-> MVC: response
+api -d-> MS: must be registered
+MS -u-> api: response
+
+    db -u-> rest: response
+    rest -d-> db: request
+    MS -d-> rest: request
+    rest -u-> MS: response
+hobbies -l-> user: user can have hobbies
+user -l-> group: group is composed by users
+user --> messages: no messages without user
+
+
+av --> filter
+hobbie --> filter
+match --> search : search matches
+filter --> search : search aid
+auth --> msg
+auth --> gp
+admin --> gp: a group must exist
+auth --> event: must be an association
+auth --> search
+
+@enduml
+```

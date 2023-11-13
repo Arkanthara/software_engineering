@@ -1,0 +1,116 @@
+@startuml
+actor User
+package "Presentation Layer" {
+card "Model View Controler" as MVC {
+    card View [
+    <b>View
+    ----
+    display Interface
+    ]
+    card Model [
+    <b>Model
+    ----
+    look after data
+    ]
+    card Controler [
+    <b>Controler
+    ----
+    look after user's request
+    ]
+}
+}
+card api [
+    <b>API Gateway
+    ---
+    Permit to interact
+    with micro-services
+]
+package "Database layer" as db {
+    database user [
+        <b> Profile_SQL database
+        ---
+        Store all informations
+        about profile of user
+    ]
+    database hobbies [
+        <b> Hobbies_SQL database
+        ---
+        Store all hobbies
+        and activities that
+        can be made by a student
+    ]
+    database group [
+        <b> Group_SQL database
+        ---
+        Store members, media,
+        messages, documents...
+    ]
+}
+package "Business Layer" {
+card "Micro-services" as MS {
+    card auth [
+        <b>Authentification
+        ----
+        Look after user's registration
+        and authentification
+    ]
+    card search [
+        <b>Search
+        ---
+        Look after research of
+        students in Database
+    ]
+    card filter [
+        <b>Filter
+        ---
+        Filter hobbies
+        interest of students
+        Sections
+    ]
+    card match [
+        <b>Match
+        ---
+        Search students
+        who match
+    ]
+    card msg [
+        <b>Message
+        ---
+        Look after
+        messages
+    ]
+    card admin [
+        <b>Administrator
+        ---
+        Look after
+        a group
+    ]
+}
+}
+card rest [
+    <b>API REST
+    ---
+    Allow to interact
+    with the database layer
+]
+
+View --> Controler : User input
+Controler --> Model : Manipulate data
+Model --> View : Update view
+Model --> api: request
+db --> rest: response
+rest --> db: request
+search --> rest: request
+rest --> search: response
+
+hobbies -> user
+user -> group
+match --> search : can search matches
+filter -> search : can be used to search easily
+api --> auth : must be registered
+auth --> search
+auth --> filter
+auth --> match
+User --> MVC
+
+@enduml

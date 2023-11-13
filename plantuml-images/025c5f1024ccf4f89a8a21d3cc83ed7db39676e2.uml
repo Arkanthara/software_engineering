@@ -1,0 +1,32 @@
+@startuml
+card view [
+    <b>Presentation layer
+]
+card bus [
+    <b>Business layer
+]
+card db [
+    <b>Database layer
+]
+card api [
+    <b>API Gateway
+    ---
+    Allow to interact
+    with micro-services
+]
+card rest [
+    <b>API REST
+    ---
+    Allow to interact
+    with the database layer
+]
+view --> api: request
+api --> view: response
+api --> bus: request
+bus --> api: response
+bus --> rest: request
+rest --> db: request
+db --> rest: response
+rest --> bus: response
+
+@enduml

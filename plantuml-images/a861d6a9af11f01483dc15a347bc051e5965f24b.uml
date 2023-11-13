@@ -1,24 +1,22 @@
 @startuml
-scale 1024 width
-scale 2048 height
 actor User
 package "Presentation Layer" {
 card "Model View Controler" as MVC {
-	card View [
-	<b>View
-	----
-	display Interface
-	]
-	card Model [
-	<b>Model
-	----
-	look after data
-	]
-	card Controler [
-	<b>Controler
-	----
-	look after user's request
-	]
+    card View [
+    <b>View
+    ----
+    display Interface
+    ]
+    card Model [
+    <b>Model
+    ----
+    look after data
+    ]
+    card Controler [
+    <b>Controler
+    ----
+    look after user's request
+    ]
 }
 }
 card api [
@@ -137,8 +135,8 @@ auth -u-> api: response
     rest --> db: request
     MS --> rest: request
     rest --> MS: response
-    hobbies --> user
-    user --> group
+    hobbies -l-> user
+    user -l-> group
     user --> messages
 av --> filter
 hobbie --> filter
@@ -146,9 +144,8 @@ match --> search : search matches
 filter --> search : search aid
 auth --> msg
 auth --> gp
-admin --> gp: a group must exist
+admin -d-> gp: a group must exist
 auth --> event: must be an association
 auth --> search
 
 @enduml
-

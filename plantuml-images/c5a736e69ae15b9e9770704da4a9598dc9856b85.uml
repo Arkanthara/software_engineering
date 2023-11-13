@@ -1,0 +1,11 @@
+@startuml
+card view [
+    <b>Presentation layer
+]
+card bus [
+    <b>Business layer
+]
+card db [
+    <b>Database layer
+]
+@enduml
