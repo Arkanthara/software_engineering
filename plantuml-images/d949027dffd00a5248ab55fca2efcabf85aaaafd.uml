@@ -1,0 +1,19 @@
+@startuml
+allowmixing
+
+interface Prototype {
+    + clone(): Prototype
+}
+
+class Prototype1 implements interface {
+    + clone(): Prototype
+}
+
+class Prototype2 implements interface {
+    + clone(): Prototype
+}
+
+actor User
+User ..> Prototype: uses
+
+@enduml

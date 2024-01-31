@@ -1,0 +1,18 @@
+@startuml
+
+interface ClientInterface {
+    + operations()
+}
+
+class Adapter implements ClientInterface {
+    - adapted: Service
+    + operations()
+}
+
+Adapter --> Service
+
+class Service {
+    + specific_operation()
+}
+
+@enduml

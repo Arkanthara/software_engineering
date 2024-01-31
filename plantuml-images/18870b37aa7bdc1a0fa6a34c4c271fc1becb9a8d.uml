@@ -1,0 +1,26 @@
+@startuml
+interface AbstractFactory {
+    + CreateProductA(): ProductA
+    + CreateProductB(): ProductB
+}
+
+class ConcreteFactoryA implements AbstractFactory {
+    + CreateProductA(): ProductA
+    + CreateProductB(): ProductB
+}
+
+class ConcreteFactoryB implements AbstractFactory {
+    + CreateProductA(): ProductA
+    + CreateProductB(): ProductB
+}
+
+interface AbstractProductA  {}
+interface AbstractProductB {}
+
+object ProductA1
+object ProductB1
+
+object ProductA2
+object ProductB2
+
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+interface AbstractFactory {
+    + CreateProductA()
+    + CreateProductB()
+}
+@enduml
