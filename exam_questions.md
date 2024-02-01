@@ -365,25 +365,77 @@ Il divise la responsabilité en 3 composants :
 - Augmente la cohésion
 - Diffère la liaison (Defer binding)
 
-# Question 25 
+# Question 25 Micro-services 
+
+Développer un grand nombre de petits services sur une application monolithique.
+
+Cela permet d'être beaucoup plus granulaire dans le déploiement.
+
+Chaque élément est plus facile à tester de manière isolée.
+
+Bien adapté aux petites équipes équipes agiles.
+
+Enfin, il élimine l'engagement à long terme envers une technologie particulière car chaque composant peut utiliser une pile différente.
+
+
+![docs.oracle.com](./images_2/microservice.png){width=50%}
 
 ## Propriétés
 
 ### Construction
 
+- S'appuie sur une multitude de technologies
+- S'appuie sur de nombreux autres patterns (ex: broker)
+
 ### Attention
+
+- Les tests d'intégration sont difficile
+- Le déploiement est complexe
+- Augmentation de la consommation de mémoire
+- Il faut potentiellement beaucoup discuter (Potentially very chatty)
 
 ### Avantages
 
-# Question 20 Layered
+- Réduit la taille du module
+- Réduit le couplage
+- Augmente la cohésion
+- Diffère les liaisons (defer binding)
+- Contrôle la demande
+- Localise le service
+- Gère les interfaces
+
+# Question 26 (C)ommand (Q)uery (R)esponsibility (S)egregation
+
+L'objectif principal du CQRS est de lire et de mettre à jour les données depuis un data store.
+
+Il reconnaît que le modèle de lecture et de traitement (dénormalisé) est souvent contradictoire avec celui optimal pour le stockage (normalisé).
+
+L'autre avantage est la séparation claire entre l'autorisation de lecture et l'autorisation d'écriture.
+
+Ce modèle s'adapte généralement beaucoup mieux que le fait d'avoir le même modèle pour la lecture et l'écriture.
+
+Le modèle est cohérent à la fin.
+
+![invivoo.com](./images_2/CQRS.png){width=50%}
 
 ## Propriétés
 
 ### Construction
 
+- S'appuie sur de nombreuses technologies
+- Habituellement, la cohérence éventuelle est mise en œuvre par publishsubscribe
+
 ### Attention
 
+- Complexité additionnelle
+- La cohérence éventuelle est difficile à contrôler (Eventual consistency is difficult to control)
+
 ### Avantages
+
+- Réduit le couplage
+- Augmente la cohésion
+- Contrôle la demande
+- Gère les ressources
 
 # Question 27 – qu’est ce qu’une API. Comment compare t’on API et interfaces ? Qu’est sont les bonnes pratiques. Qu’est-ce que REST API ?
  
