@@ -34,16 +34,6 @@ date: \today
 
 ![](./images/singleton_2.png)
 
-```plantuml
-@startuml
-class Singleton {
-    - singleton: Singleton
-    - Singleton(): Singleton
-    + getInstance(): Singleton
-}
-@enduml
-```
-
 ## Implémentation
 ```Java
 
@@ -100,47 +90,6 @@ Abstract Factory permet de créer des familles d’objets apparentés sans préc
 
 ![](./images/abstract_factory_3.png)
 
-```plantuml
-@startuml
-allowmixing
-interface AbstractFactory {
-    + CreateProductA(): ProductA
-    + CreateProductB(): ProductB
-}
-
-class ConcreteFactoryA implements AbstractFactory {
-    + CreateProductA(): ProductA
-    + CreateProductB(): ProductB
-}
-
-class ConcreteFactoryB implements AbstractFactory {
-    + CreateProductA(): ProductA
-    + CreateProductB(): ProductB
-}
-
-interface AbstractProductA  {}
-interface AbstractProductB {}
-
-Class ProductA1 implements AbstractProductA
-Class ProductB1 implements AbstractProductB
-
-Class ProductA2 implements AbstractProductA
-Class ProductB2 implements AbstractProductB
-
-ConcreteFactoryA ..> ProductA1: instance
-ConcreteFactoryA ..> ProductB1: instance
-ConcreteFactoryB ..> ProductA2: instance
-ConcreteFactoryB ..> ProductB2: instance
-
-actor User
-
-User ..> AbstractFactory: uses
-User ..> AbstractProductA: uses
-User ..> AbstractProductB: uses
-
-@enduml
-```
-
 ## Pseudo code:
 
 ```java
@@ -185,52 +134,6 @@ Les prototypes préconstruits sont une alternative au sous-classage.
 
 ![](./images/prototype_4.png)
 
-```plantuml
-@startuml
-allowmixing
-
-interface Prototype {
-    + clone(): Prototype
-}
-
-class Prototype1 implements Prototype {
-    + clone(): Prototype
-}
-
-class Prototype2 implements Prototype {
-    + clone(): Prototype
-}
-
-actor User
-User --> Prototype: uses
-
-@enduml
-```
-\newpage
-Autre possibilité
-
-```plantuml
-@startuml
-allowmixing
-
-class Prototype {
-    + clone(): Prototype
-}
-
-class Prototype1 extends Prototype {
-    + clone(): Prototype
-}
-
-class Prototype2 extends Prototype {
-    + clone(): Prototype
-}
-
-actor User
-User --> Prototype: uses
-
-@enduml
-```
-
 ## Implémentation
 
 ```java
@@ -267,26 +170,6 @@ public class ConcretePrototype2 extends Prototype {
 
 ![](./images/adapter_2.png)
 
-```plantuml
-@startuml
-
-interface ClientInterface {
-    + method()
-}
-
-class Adapter implements ClientInterface {
-    - adapted: Service
-    + method()
-}
-
-Adapter -r-> Service
-
-class Service {
-    + serviceMethod()
-}
-
-@enduml
-```
 
 ## Implémentation
 
@@ -573,3 +456,125 @@ Permet de séparer les algorithmes et les objets sur lesquels ils opèrent.
 ![](./images/visitor_3.png)
 
 ## Implémentation (TODO !!)
+
+
+# Diagrammes fait à la main
+
+```plantuml
+@startuml
+class Singleton {
+    - singleton: Singleton
+    - Singleton(): Singleton
+    + getInstance(): Singleton
+}
+@enduml
+```
+```plantuml
+@startuml
+allowmixing
+interface AbstractFactory {
+    + CreateProductA(): ProductA
+    + CreateProductB(): ProductB
+}
+
+class ConcreteFactoryA implements AbstractFactory {
+    + CreateProductA(): ProductA
+    + CreateProductB(): ProductB
+}
+
+class ConcreteFactoryB implements AbstractFactory {
+    + CreateProductA(): ProductA
+    + CreateProductB(): ProductB
+}
+
+interface AbstractProductA  {}
+interface AbstractProductB {}
+
+Class ProductA1 implements AbstractProductA
+Class ProductB1 implements AbstractProductB
+
+Class ProductA2 implements AbstractProductA
+Class ProductB2 implements AbstractProductB
+
+ConcreteFactoryA ..> ProductA1: instance
+ConcreteFactoryA ..> ProductB1: instance
+ConcreteFactoryB ..> ProductA2: instance
+ConcreteFactoryB ..> ProductB2: instance
+
+actor User
+
+User ..> AbstractFactory: uses
+User ..> AbstractProductA: uses
+User ..> AbstractProductB: uses
+
+@enduml
+```
+```plantuml
+@startuml
+allowmixing
+
+interface Prototype {
+    + clone(): Prototype
+}
+
+class Prototype1 implements Prototype {
+    + clone(): Prototype
+}
+
+class Prototype2 implements Prototype {
+    + clone(): Prototype
+}
+
+actor User
+User --> Prototype: uses
+
+@enduml
+```
+\newpage
+Autre possibilité
+
+```plantuml
+@startuml
+allowmixing
+
+class Prototype {
+    + clone(): Prototype
+}
+
+class Prototype1 extends Prototype {
+    + clone(): Prototype
+}
+
+class Prototype2 extends Prototype {
+    + clone(): Prototype
+}
+
+actor User
+User --> Prototype: uses
+
+@enduml
+```
+```plantuml
+@startuml
+
+interface ClientInterface {
+    + method()
+}
+
+class Adapter implements ClientInterface {
+    - adapted: Service
+    + method()
+}
+
+Adapter -r-> Service
+
+class Service {
+    + serviceMethod()
+}
+
+@enduml
+```
+
+
+
+
