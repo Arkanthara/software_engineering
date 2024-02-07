@@ -778,6 +778,8 @@ Cela permet aux membres de l'équipe de se concentrer sur la valeur ajoutée, et
 
 # Question 32 – Expliquez comment fonctionne un burndown chart
 
+![chef-de-projet.fr](./images_2/burndown.png)
+
 ## Paramètres supplémentaires pour mesurer la productivité de l'équipe
 
 - Engagé (Committed) : Le nombre de points d'histoire qu'une équipe pense pouvoir livrer dans les limites d'une équipe.
@@ -809,8 +811,129 @@ Généralement, ces problèmes sont découverts par les utilisateurs finaux apr�
  
 # Question 33 – Qu’est-ce qu’une software factory ? Donnez-en une description des composants
  
+Shéma p218
+
+## Integrated Development Environment (IDE)
+
+- Fournit un ensemble d'outils faciles à utiliser afin de maximiser la productivité du développement.
+- Édition de code : mise en évidence de la syntaxe, complétion du code, remaniement.
+- Compiler et construire : compile le code source en binaires et construit des paquets déployables.
+- Exécuter, déboguer et tester : exécute des tests unitaires ou un programme complet et fournit des capacités de débogage faciles.
+CONSEIL : prenez le temps d'apprendre les touches de raccourci par cœur.
+
+## Gestion du code source
+
+- Sauvegarde des versions du code source
+- Possibilité de revenir à une version particulière
+- Permettre de comparer facilement les versions du code
+- Pour éviter/réduire les conflits entre les versions, il existe deux approches :
+    - Le verrouillage pessimiste et le verrouillage optimiste.
+- Gérer les balises et les branches du code
+
+## Vocabulaire de la gestion du code source
+
+- Tag/label : une sauvegarde en lecture seule de l'état du code à un moment donné.
+- Branche : un ensemble de fichiers dans une version particulière qui ont été forkés à un moment donné à partir d'une autre branche.
+- Révision/Version : l'état atomiquement cohérent du code source. Elle est généralement identifiée de manière unique.
+- Checkout (extraction) : Créer une copie à partir d'un dépôt à un moment donné.
+- Commit (nom) est une modification associée à une révision et commit (verbe) est l'action d'écrire ou de fusionner des modifications.
+Un commit ainsi que les changements dans le code source contiennent des métadonnées telles que
+les auteurs, le message de validation...
+- Clone : copie d'un référentiel complet avec tout l'historique.
+- Fetch/Pull : copie d'une révision d'un dépôt (par exemple, distant) vers un autre (par exemple, local).
+- Head : La pointe de l'historique. Pointe vers le commit le plus récent
+- Fusionner (merge) : Intégrer différentes modifications (commits) et résoudre les conflits potentiels.
+- Pousser (push): copier une ou plusieurs révisions d'un dépôt (par exemple, local) vers un autre (par exemple, distant).
+- Pull Request (demande d'extraction) : Une demande de fusion de révisions
+
+### Branchements
+
+![learn.microsoft.com](./images_2/branchement.png)
+
+## Outil de construction et de gestion des dépendances
+
+- Automatisation des différentes étapes de construction d'un logiciel
+- Gestion des dépendances et des dépendances transitives
+- Le même outil et la même configuration pour construire le logiciel quel que soit l'endroit où il doit être construit (ordinateur portable de développement ou serveur CI).
+- Systématique et reproductible
+
+Exemple p224
+
+## Outil d'intégration continue
+
+- Compiler et exécuter localement
+- Compiler et exécuter la version mergée (intégrée) du code
+- Pour éviter l'effet "Dunno, works on my machine (shrug)", la compilation locale et la compilation sur le serveur CI DOIVENT ÊTRE IDENTIQUES.
+- Chaque commit doit être testée de manière centralisée
+- Chaque commit est accompagnée d'un cas de test
+- Le build doit être rapide (<15min) pour le commit build
+- La dernière version doit être facilement testable à n'importe quel moment.
+- Les portes de qualité (couverture < 80%, nombre d'odeurs de code) font échouer la construction.
+
+## Outil de gestion des artefacts
+
+- Les binaires doivent être facilement accessibles par les outils de gestion des dépendances
+- Les binaires doivent être signés
+- Les binaires sont identifiés de manière unique
+
+## Conseils de productivité
+
+- Automatisez, automatisez, automatisez, automatisez, ... (apprenez le shell/vi, sérieusement !)
+- Minimisez les distractions. Prévoyez un horaire pour vérifier les courriels, le téléphone, les chats.
+- Trouvez l'environnement de travail idéal pour VOUS.
+- Connaissez-vous vous-même. Êtes-vous plutôt du genre à commencer tôt ou à travailler tard ?
+- Luttez contre le syndrome de Stockholm ! N'acceptez pas une productivité médiocre !
+- Refactoriser continuellement et éviter de refactoriser en rafale.
+- Ayez toujours le bon environnement pour tester.
+- Apprenez vos outils et revisitez-les régulièrement.
+
+
 # Question 34 – Qu’est-ce qu’une branching strategy ? Expliquez les différents types de branches.
- 
+
+![atlassian.com](./images_2/branches_2.png)
+
+## develop
+
+Développement
+
+- Pas de commits de développement.
+- Sert de branche d'intégration pour différentes fonctionnalités. Fournit l'historique complet du projet.
+- Toutes les branches de fonctionnalités sont fusionnées dans cette branche.
+
+## feature
+
+Développement
+
+- Branche séparée pour chaque fonctionnalité. Branchée à partir de la branche "développement".
+- Elle ne doit pas interagir directement avec la branche "master".
+- Lorsque le développement est terminé, la branche "développement" est fusionnée avec la branche "master". 
+
+## hotfix
+
+Développement
+
+- Ces branches sont utilisées pour corriger rapidement les versions de production.
+- C'est la SEULE branche qui doit être directement dérivée de la branche "master".
+- Lorsque le développement est terminé, il doit être fusionné dans la branche "master" ainsi que dans la dernière branche "develop".
+- La branche "master" doit être étiquetée avec le numéro de version approprié lorsque le correctif est publié.
+
+## master
+
+Mainline
+
+- Aucun commit de développement.
+- Fournit l'historique officiel des versions du projet.
+
+## release
+
+Release
+
+- Une fois que toutes les fonctionnalités (qui font partie d'une release) sont terminées et fusionnées dans la branche "development", une branche "release" sera créée à partir de la branche "development".
+- AUCUNE NOUVELLE FONCTIONNALITÉ N'EST AUTORISÉE DANS LA BRANCHE "RELEASE".
+- Seules les corrections de bogues, la documentation et les autres tâches liées à la version (telles que les tests de régression et les tests de performance)
+- Une fois que tout est terminé et prêt à être expédié, la branche "release est fusionnée dans "master" et étiquetée avec une version release.
+- Cette branche doit également être fusionnée avec la branche "develop".
+
 # Question 35 – Qu’est ce que la dette technique ? Comment la détecter, la suivre. Est-ce bon ou mauvais ?
  
 # Question 36 – Décrivez un processus de sécurité. Qu’est ce STRIDE ? Quels sont les éléments d’une politique de sécurité.
