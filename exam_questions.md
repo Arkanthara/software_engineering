@@ -935,5 +935,123 @@ Release
 - Cette branche doit également être fusionnée avec la branche "develop".
 
 # Question 35 – Qu’est ce que la dette technique ? Comment la détecter, la suivre. Est-ce bon ou mauvais ?
- 
+
+## Entreprise architecture
+
+- Business architecture
+    - Stratégie définie par l'entreprise, processus d'affaires, Organisation, maturité
+- Architecture des données
+    - Entités et leurs relations, données, qualité des données, données
+    -> Information -> Décision
+- Architecture de l'application
+    - Composants de l'application, API, solutions, dette technique
+- Architecture technologique
+    - Stratégie technologique, feuille de route et radar, matériel, infrastructure.
+
+## Exemples d'artefacts d'architecture d'entreprise
+
+- Modèles de maturité
+- Dette technique
+- Radar technologique
+- Feuille de route technologique
+
+## Dette technique
+
+La dette technique est un concept de développement de logiciels qui reflète le coût implicite des travaux supplémentaires causés par le choix d'une solution facile (limitée) maintenant au lieu d'utiliser une meilleure approche qui prendrait plus de temps.
+
+Il n'y a pas de mal à emprunter pour l'avenir, à condition de rembourser.
+
+La dette technique n'est pas mauvaise en soi : L'objectif est de passer d'une attitude insouciante/inadvertante à une attitude délibérée/prudente.
+
+- Dette de processus (S) : Ne pas respecter le processus ?
+- Dette d'ingénierie (M) : Prendre des raccourcis lors de la conception et le développement ?
+- Dette de fonctionnalités (XL) : Ajout d'une UX incompatible, double maintenance pour le GTM, ne pas mettre à jour les moteurs, les tiers pour le GTM, les technologies vieillissantes ?
+
+![blog.monsieurguiz.fr](./images_2/dette.png)
+
 # Question 36 – Décrivez un processus de sécurité. Qu’est ce STRIDE ? Quels sont les éléments d’une politique de sécurité.
+
+## Sécurité des systèmes logiciels ?
+
+- La sécurité implique d'être à l'abri d'un danger ou d'une menace
+- Du point de vue du développement, la sécurité est une exigence non fonctionnelle et doit être traitée comme telle (définition, test).
+Ceci définit un processus de sécurité
+- Du point de vue de l'entreprise, la sécurité implique beaucoup plus d'aspects et nécessite donc une politique de sécurité.
+
+## Processus de sécurité
+
+- La sécurité doit être une préoccupation à chaque étape
+du processus.
+- S'appuyer sur une combinaison d'outils et de
+d'examen
+- Le fait d'être sécurisé à la date prévue n'implique pas
+de rester en sécurité à l'heure+1
+
+## Conception du produit
+
+- Intégrer la sécurité dans la conception dès le premier jour
+- Après la conception de haut niveau, procéder à une modélisation de la menace
+- Si le système est critique, demander un examen externe
+
+## Développement de produits
+
+- Suivre les meilleures pratiques de développement sécurisé pour le langage de développement cible
+- Appliquer régulièrement la modélisation des menaces (au moins après chaque fonctionnalité majeure)
+- Penser comme un attaquant
+- Évaluer les menaces et les classer par ordre de priorité
+- Microsoft STRIDE
+    - Usurpation d'identité - authenticité
+    - Falsification - intégrité
+    - Répudiation - Non-répudiabilité
+    - Divulgation d'informations - Confidentialité
+    - Déni de service - Disponibilité
+    - Élévation de privilèges - Autorisation
+
+## Analyse du code
+
+- Exécute en permanence des contrôles automatiques :
+- N'exécute pas l'application, se contente d'analyser le code source.
+- Test statique de la sécurité des applications
+    - Vérifier les anti-modèles de sécurité courants
+    - Sonar Qube / Sonar Cloud
+- Analyses de open source
+    - Vérifier que la troisième application (spécifiquement open source) ne présente pas de vulnérabilité connue.
+    - White Source
+    - Black Duck
+
+
+## Test dynamique
+
+- Exécuter le test pendant l'exécution de l'application
+- Simule un attaquant
+- Exécute les attaques les plus courantes
+- Très efficace pour exécuter des attaques fastidieuses et répétitives
+
+## Test de pénétration
+
+- Tester tous les types d'attaques par un "chapeau blanc".
+- Les soumettre régulièrement à un tiers "chapeau blanc".
+- Changer régulièrement de fournisseur
+- Au moins deux fois par an
+
+## GDPR / CCPA (General Data Protection Regulation)
+
+## Principes du GDPR
+
+- Le respect de la vie privée dès la conception
+- Consentement
+- Comment les données sont-elles collectées et utilisées ?
+- Quelles sont les données collectées ?
+- S'il y a des erreurs, vous pouvez les faire corriger
+- Vous pouvez demander la suppression de vos données
+- Vous pouvez refuser le traitement des données
+
+## Rôles GDPR, un who's who
+
+- Personne concernée : vous, moi
+- Responsable du traitement des données : une entité qui recueille et stocke les données
+- Processeur de données : une personne ou une entité qui traite les données pour le compte du responsable du traitement.
+Fait respecter l'accord sur le traitement des données
+- Autorité de contrôle : organisation basée dans le pays pour faire appliquer le GDPR
+- Délégué à la protection des données : les grandes organisations doivent désigner un délégué pour gérer les activités liées au GDPR.
+Responsable de la conformité au GDPR
