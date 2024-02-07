@@ -438,16 +438,374 @@ Le modèle est cohérent à la fin.
 - Gère les ressources
 
 # Question 27 – qu’est ce qu’une API. Comment compare t’on API et interfaces ? Qu’est sont les bonnes pratiques. Qu’est-ce que REST API ?
- 
+
+- Une (A)pplication (P)rograming (I)nterface définit un contrat pour un client.
+Une implémentation se conforme à cette interface mais le client ne la voit pas.
+
+- Définit les contrats/API dès le début de la mise en œuvre
+- Le faire d'abord au niveau du service et l'affiner progressivement
+- Cela permet d'aider // le travail et de fixer les limites des composants.
+- Accepter que les choses changent considérablement au début. Votre compréhension du problème évolue, tout comme votre API.
+- Utilisez un outil pour documenter et maintenir vos API (par exemple, Javadoc, Swagger).
+- Pensez comme vous voudriez l'utiliser (facile, difficile à utiliser à mauvais escient, complet)
+- Ne pas abuser du chaînage de méthodes
+
+## Conseils
+
+- Minimiser le couplage des paquets
+- Utiliser des interfaces plutôt que des classes abstraites
+- Éviter les statiques, se méfier de Singleton (plus d'informations à ce sujet ultérieurement)
+- Rester à l'écart des détails d'implémentation dans l'API
+- Utiliser des exceptions d'exécution standard (IllegalArgument, IllegalState, ....)
+- Utiliser une formulation et une forme cohérentes
+- Utiliser des varargs, des enums, des valeurs par défaut
+- PENSER À LA TESTABILITÉ
+
+## REST API
+
+Une API REST est une API qui suit les principes du (T)transfert d'état(S) (RE)présentationnel.
+
+(REpresentational State Transfert)
+
+Il s'agit d'un ensemble de contraintes auxquelles les services web doivent se conformer.
+
+Ils permettent la scalability, la portabilité, la fiabilité et la modifiabilité.
+
+### Propriétés
+
+1. Client-Serveur : séparation de l'interface utilisateur et de la commande.
+L'état de la session est conservé du côté client. Supposons un système déconnecté. (Assume a disconnected system)
+2. Statelessness : chaque requête du client au serveur doit être autonome.
+3. Mise en cache : si une réponse ne peut être mise en cache (idempotence), elle doit être explicite.
+4. Interface uniforme : identification des ressources, manipulation des ressources par le biais de la représentation, du message auto-descriptif et des liens hypertextes comme moteur. (ou et de l'interface de communication... En anglais: and hyperlinks as the engine.
+5. Système en couches : voir les modèles d'architecture
+6. Code à la demande (facultatif) : le serveur peut renvoyer de la logique (telle que JavaScript).
+
+### Guidelines
+
+- Ressource : information qui peut être nommée avec un identifiant de ressource.
+Utilisez des noms pluriels et non des verbes. Exemple:
+/employees/123 : employé avec l'identifiant 123
+- Représentation de la ressource : une représentation se compose de données, de métadonnées et d'hyperliens qui permettent au client de naviguer entre les différents états.
+Généralement, JSON ou XML
+- Méthodes de la ressource : opérations qui permettent de passer d'un état à l'autre.
+En général, elles reposent sur les méthodes HTTP (GET, PUT, POST, DELETE). Exemple:
+POST employees/123 (avec un corps en json ou en xml) crée l'employé 123
+
+- Utiliser des noms au pluriel et non des verbes : /employees et non /getEmployees
+- Utiliser les paramètres pour configurer le service MAIS PAS pour identifier les ressources
+
+    /employees/1 et non /employees?id=1 MAIS /employees?name=XX
+et non /getEmployeeByName/XXXX
+
+- Utiliser le bon code de retour HTTP : par exemple, 201 comme code de retour pour une ressource nouvellement créée et non 200
+- Utiliser le versioning /v1/employees, /v2/employees
+- Utiliser la pagination comme paramètre : /employees?limit=25&offset=50
+- Utiliser la spécification OpenAPI : https://swagger.io/resources/open-api/
+
 # Question 28 – Qu’est ce que sont les qualités externes et internes ? Quelle est la différence entre vérification et validation.
+
+## Qualités externes
+
+Ce que perçoivent les parties prenantes en dehors de l'équipe de développement
+
+### Fonctionnel (difficile à spécifier et à vérifier)
+
+- Validité par rapport aux exigences de l'utilisateur
+
+### Non fonctionnel (généralement plus facile à vérifier)
+
+- Performances : scalabilité, débit (throughput)
+- Facilité d'utilisation : facile à comprendre, rapide à utiliser
+- Réutilisation : les parties peuvent-elles être réutilisées pour d'autres logiciels ?
+- Portabilité : est-il polyvalent du point de vue de la plate-forme ?
+- Interopérabilité : s'intègre-t-il facilement avec des tiers ?
+- Robustesse : Est-il résistant lorsqu'il est confronté à des comportements inattendus ?
  
+## Qualités internes
+
+Ce que l'équipe de développement perçoit du logiciel
+
+### Fonctionnel
+
+- Conformité aux spécifications
+
+### Non fonctionnel
+
+- Vérifiabilité : Le logiciel est-il facilement testable ?
+- Maintenabilité : l'ajout d'une nouvelle fonctionnalité ou la correction d'un bug ne nécessite pas une énorme préparation
+
+## Assurance qualité
+
+L'assurance qualité est le résultat de plusieurs activités :
+
+- Test : Exercer le logiciel pour vérifier s'il se comporte correctement par rapport aux spécifications ou aux exigences de l'utilisateur.
+- Vérification du modèle : Vérifier qu'un modèle du logiciel respecte des propriétés spécifiques
+- Code Review/Audit : Regarder le code jusqu'à ce que vous puissiez lire la matrice
+- En suivant les bonnes pratiques/modèles connus : Se tenir sur les épaules des géants
+
+## V&V
+
+Évaluer que le logiciel produit respecte la spécification n'est pas la même chose que de vérifier qu'il satisfait les besoins de l'utilisateur.
+
+### Validation
+
+Avons-nous construit le bon logiciel (par rapport aux besoins de l'utilisateur) ?
+
+(Did we built the right software)
+
+### Vérification
+
+Avons-nous bien construit le logiciel (par rapport à la spécification) ?
+
+(Did we built the software right)
+
 # Question 29 – Représentez la pyramide des tests et commentez.
- 
+
+![jaayap.github.io](./images_2/pyramide.png)
+
+Incomplet... Regarder dans le cours p146
+
+## Test : Vocabulaire
+
+- Objectif de test (Test objective) : ce qu'il faut tester (fonctionnalité, NFR)
+- Cas de test (Test case): vérifie un objectif de test et consiste en un ensemble de valeurs d'entrée, de pré-conditions, de résultats attendus et de post-conditions.
+- Procédure de test (Test procedure): procédure permettant de mettre en place, d'exécuter et d'évaluer le résultat d'une séquence de cas de test.
+- Plan de test (Test plan): description de la portée, de l'approche, des ressources et du calendrier des activités de test.
+
+## Test
+
+Les tests comprennent les activités suivantes :
+
+- Planification et contrôle des tests
+- Analyse et conception des tests
+- Mise en œuvre et exécution des tests
+- Évaluation des critères de sortie et établissement de rapports
+- Activités de clôture des tests
+
+### Planification et contrôle des tests
+
+- Définition des objectifs du test
+- Planification de haut niveau (high-level scheduling)
+- Contrôle et signalement des écarts (Control and reporting of deviations)
+
+
+### Analyse et conception des tests
+
+- Transformer les conditions générales d'essai en cas d'essai réels :
+    - Mettre en place l'architecture de test
+- Concevoir des cas de test de haut niveau 
+
+### Mise en œuvre et exécution des tests
+
+- Priorité à la mise en œuvre des cas de test
+- Création d'une procédure de test
+- Création d'un test harness (environnement)
+- Vérifier la traçabilité bidirectionnelle
+
+- Exécution de la procédure de test
+- Enregistrement des résultats
+- Comparer les résultats réels et les résultats attendus
+- Signaler l'échec et remonter à la cause de l'échec (trace back the reason)
+- Répéter l'exécution pour vérifier que l'erreur a été corrigée.
+
+## Principes des tests
+
+- Les tests prouvent la présence de défauts.
+- Les tests ne prouvent pas l'absence de défauts (voir principe 2).
+- Les tests exhaustifs (test de toutes les combinaisons d'entrées et de sorties) ne sont pas réalisables dans les cas non triviaux.
+- Plus les tests sont effectués tôt, mieux c'est.
+- Étudier la densité des défauts. Les tests doivent se concentrer sur les modules dont la densité de défauts attendus/mesurés est élevée
+- Les tests ne vieillissent pas bien.
+En d'autres termes, les tests doivent être revus régulièrement pour évaluer leur validité
+- Les tests ne sont pas effectués de la même manière dans les applications critiques pour la sécurité et dans les sites web de commerce électronique.
+N'oubliez pas d'évaluer les risques et les enjeux.
+- L'absence de défaut ne signifie pas que le système est prêt pour le prime time.
+Cela signifie qu'il remplit (en partie) les spécifications, mais pas nécessairement les exigences de l'utilisateur.
+
+## Niveaux de test
+
+### Tests de composants
+
+- alias test d'unité, test de module
+- Base de test : Exigences des composants, conception détaillée, code
+- Objets du test : Composants (classes, package, programmes, scripts de base de données, ...)
+
+- En isolation
+- Utilise des mock, des stubs, des fakes
+- Teste les exigences fonctionnelles et non fonctionnelles
+- Par les programmeurs (peu de frais de gestion)
+
+### Tests d'intégration
+
+- Base de test : architecture et conception, use case, flux de travail
+- Objets de test : Ensemble de composants, sous-systèmes, infrastructure, configuration du système, intégration aux composants externes
+
+- Il peut rester des mocks
+- Se fait après le test des composants
+- L'intégration de trop de choses peut nuire à la traçabilité
+- Fait par le responsable de l'intégration/le développeur
+
+### Test du système
+
+- Base de test : Exigences du système, cas d'utilisation, analyse des risques
+- Objets de test : Système dans son ensemble, documentation, aide, configuration
+- Plus de mocks
+- Après les tests d'intégration
+- L'environnement de test doit être aussi proche que possible de l'environnement de production
+- Généralement effectué par une équipe différente (pas de développeur)
+
+### Test d'acceptation par l'utilisateur
+
+- Base de test : exigences de l'utilisateur, exigences du système, cas d'utilisation, processus opérationnels, analyse des risques
+- Objets de test : procédures utilisateur, formulaires, rapports, configuration
+- Plus de mocks
+- Après les tests du système
+- objectif : établir la confiance nécessaire pour prendre une décision éclairée sur la question de savoir si l'on va ou non valider le logiciel
+- Fait par l'utilisateur final
+
+## Types de tests
+
+- Fonctionnels
+- Structure/Architecture
+- Non fonctionnels
+- Liés au changement
+
+## Test techniques
+- White box
+- Black box
+- Static
+    - Review/Audit
+    - Static analysis
+- Dynamic
+    - White box
+    - Black box
+    - Code coverage
+
+
 # Question 30 – Que sont les tests doubles ? Donnez en la liste et commentez sur les différences d’usage.
- 
+
+## Tests de composants
+
+alias tests unitaires, tests de modules
+
+- Base de test : Exigences du composant, conception, code
+- Objets du test : Composants (classes, package, programmes, scripts de base de données, ...)
+
+### En isolation
+
+- Utilise des mocks, des stubs, des fakes
+- Teste les exigences fonctionnelles et non fonctionnelles
+- Par les programmeurs (faible coût de gestion)
+
+## Test double
+
+Aide à améliorer l'isolation des tests
+
+Sinon, il ne s'agirait pas d'un test de composant (unité)
+
+De nombreux types de test doubles pour de nombreux usages différents
+
+p171: shéma
+
+![arolla.fr](./images_2/doubles.png)
+
+### Dummy objects
+
+Pour satisfaire aux contrôles au moment de la compilation
+
+Pour les exécutions au moment de l'exécution (for runtime executions)
+
+Le paramètre delta de la fonction doBusiness peut être fixé à
+null
+
+### Test doubles - Fake
+
+Shéma ?
+
+### Test doubles - Test stub
+
+Shéma ?
+
+### Test doubles - Mock
+
+Shéma ?
+
+### Test doubles - Test spy
+
+Shéma ?
+
 # Question 31 – Qu’est ce qui favorise la productivité dans le software développent
+
+## Règles
+
+- Règle 1 : ne pas faire de choses ennuyeuses $\Rightarrow$ Tout automatiser
+- Règle 2 : ne faites pas confiance à votre code $\Rightarrow$ Testez tout
+- Règle 3 : être professionnel $\Rightarrow$ Utiliser le bon outil pour la tâche à accomplir
+- Règle 4 : être paresseux $\Rightarrow$ Réutiliser autant que possible les bibliothèques existantes
+- Règle 5 : se remettre en question $\Rightarrow$ mesurer la productivité et la qualité
+- Règle 6 : la qualité d'un plan dépend de son exécution $\Rightarrow$ Assurer un suivi
  
+## Indicateur clé de performance de la productivité
+
+Un bon indicateur est
+
+- Cohérente : utiliser des définitions claires pour que les chiffres aient un sens.
+- vérifiable : les personnes extérieures peuvent prouver la viabilité des mesures
+- Disponibles : ils peuvent être utilisés pour l'étalonnage des performances.
+- Répétable : différents groupes d'utilisateurs obtiendront essentiellement le même chiffre.
+
+# Points d'histoire
+
+L'estimation par heures ou par jours est généralement très imprécise et dépend beaucoup du fait que tout ce qui concerne la fonctionnalité est connu à l'avance (conception, problèmes techniques).
+
+Elle suppose aussi souvent que l'effort est linéaire.
+
+- Les points d'histoire évaluent l'effort sur une échelle de Fibonacci : 1, 2, 3, 5, 8, 13, 20, 40, 100.
+Cela oblige l'équipe à être plus réaliste quant à la difficulté d'une tâche.
+
+- Les jours ne tiennent pas compte du travail non lié au projet qui s'insinue inévitablement dans nos journées : les courriels, les réunions et les entretiens auxquels un membre de l'équipe peut participer.
+
+- Les jours sont liés à des émotions. L'estimation relative supprime cet attachement émotionnel.
+
+- Chaque équipe estimera le travail sur une échelle légèrement différente, ce qui signifie que leur vitesse (mesurée en points) sera naturellement différente.
+Il est donc impossible de faire de la politique en utilisant la vélocité comme une arme.
+
+- Une fois que vous vous êtes mis d'accord sur l'effort relatif de chaque valeur de story point, vous pouvez attribuer des points rapidement, sans trop de débats.
+
+- Les story points récompensent les membres de l'équipe pour la résolution de problèmes en fonction de la difficulté, et non du temps passé.
+Cela permet aux membres de l'équipe de se concentrer sur la valeur ajoutée, et non sur le temps passé.
+
 # Question 32 – Expliquez comment fonctionne un burndown chart
+
+## Paramètres supplémentaires pour mesurer la productivité de l'équipe
+
+- Engagé (Committed) : Le nombre de points d'histoire qu'une équipe pense pouvoir livrer dans les limites d'une équipe.
+- Terminé (Completed): Le nombre de points d'histoire qu'une équipe a effectivement livrés au cours du sprint
+- Prévisibilité : terminé vs engagé (completed vs committed)
+- Vélocité : habituellement mesurée en story points.
+Il s'agit de la "quantité" de travail qu'une équipe peut fournir au cours d'un sprint.
+Aide à planifier les sprints suivants sur la base des performances réelles mesurées précédemment.
+Cela ne fonctionne que si la quantité de travail décrite par un story point reste constante (même équipe)
+- Rendement (throughput): mesure la quantité de travail exprimée en unités de travail (tickets, fonctionnalités, histoires, ...).
+Aide à détecter une équipe qui est bloquée.
+
+La vélocité est meilleure pour le développement de logiciels, tandis que le rendement (throughput) est meilleur pour les équipes de support.
+
+## Mesures supplémentaires pour mesurer la qualité de l'équipe
+
+- Mesure du temps de cycle : temps total entre le moment où un ticket est accepté par un développeur et le moment où il est livré selon sa définition de "done".
+- Régression : bugs sur des fonctionnalités qui fonctionnaient auparavant, ou bugs qui étaient corrigés auparavant.
+- MTTR : Mean Time To Remediation (temps moyen de remédiation) indique la rapidité avec laquelle vous pouvez déployer des correctifs pour les consommateurs après avoir été informés de l'existence d'un défaut.
+- Couverture du code (code coverage) : la quantité de code mesurée en ligne de code qui est couverte par un test unitaire (et par extension tous les tests unitaires).
+- Taux de bogues : le nombre moyen de bogues créés au fur et à mesure que de nouveaux éléments sont créés.
+Il peut vous aider à estimer si vous produisez de la valeur ou si vous ne faites que déployer un code en demi-teinte.
+
+    Produisez-vous de la qualité ou simplement de la quantité ?
+
+- Défaut échappé : un défaut qui n'a pas été trouvé par l'équipe d'assurance qualité.
+Généralement, ces problèmes sont découverts par les utilisateurs finaux après que la version publiée a été mise à leur disposition.
+
  
 # Question 33 – Qu’est-ce qu’une software factory ? Donnez-en une description des composants
  
