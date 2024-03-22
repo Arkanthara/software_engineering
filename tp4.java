@@ -63,15 +63,7 @@ enum Hobbie {
 }
 Interest --> Student
 
-class Assistant extends Student {
-  +Course: String
-	  +sendImportantInformation(message: String)
- }
 
-class Professor extends Profile {
-  +Course: String
-	  +sendImportantInformation(message: String)
-}
 
 class Associations extends Profile {
   +Calendar: Calendar
